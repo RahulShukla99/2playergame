@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Description: Launches ServerPlayer and ClientPlayer in separate JVMs for SEPARATE PID mode
+# Usage: Run this script in the project root directory & from terminal on macOS
+
 # Define your Maven project directory
 PROJECT_DIR="/Users/rahulshukla/Desktop/360T/RS_Submission/ThreeSixZeroT_F"
 
