@@ -4,15 +4,9 @@ import com.messaging.dto.Message;
 import com.messaging.dto.Player;
 
 /**
- * The interface defines a contract for player entities that are capable for sending
- * and receiving message objects. Implementation of the interface represents players
- * communicating within the same PID.
- */
-
-/**
  * Service interface for player operations.
  * 
- * @author AutoDoc
+ * @author Rahul Shukla
  */
 public interface IPlayerService {
     void handleMessage(Message message);

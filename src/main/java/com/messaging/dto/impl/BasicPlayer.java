@@ -87,6 +87,7 @@ public class BasicPlayer implements Player, Runnable {
     @Override
     public void run(){
         while(isRunning){
+            Logger.debug(" RUNNING - PLAYER_ID :: ", playerId);
             try{
                 Message message = messageInbox.take();
                 playerService.handleMessage(message);

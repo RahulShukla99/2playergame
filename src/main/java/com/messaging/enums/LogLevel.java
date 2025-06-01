@@ -14,9 +14,9 @@ package com.messaging.enums;
  * @author Rahul
  */
 public enum LogLevel {
-    INFO,
-    DEBUG,
-    ERROR,
-    WARN,
-    TRACE
+        TRACE,   // 0
+        DEBUG,   // 1
+        INFO,    // 2
+        WARN,    // 3
+        ERROR    // 4
 }

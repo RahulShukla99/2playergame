@@ -18,11 +18,11 @@ import static com.messaging.util.Constants.SEPARATE_PID_MODE;
  */
 public class Main {
     public static void main(String[] args) {
-        Logger.log("STARTING THE MESSAGING GAME :: ");
+        Logger.info(" MAIN :: ", "STARTING THE MESSAGING GAME ");
 
         if(ConfigReader.getBooleanProperty(SEPARATE_PID_MODE, false)){
-            SeparateProcessRunner separateRunner = new SeparateProcessRunner();
             Logger.log("STARTING THE APPLICATION :: SEPARATE PID ");
+            SeparateProcessRunner separateRunner = new SeparateProcessRunner();
             separateRunner.start();
         } else {
             Logger.log("STARTING THE APPLICATION :: SAME PID ");

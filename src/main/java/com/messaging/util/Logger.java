@@ -14,7 +14,7 @@ import static com.messaging.util.Constants.GLOBAL_LOG_LEVEL;
  *
  * Supported levels: TRACE < DEBUG < INFO < WARN < ERROR
  *
- * Author: Rahul
+ * Author: Rahul Shukla
  */
 public class Logger {
 

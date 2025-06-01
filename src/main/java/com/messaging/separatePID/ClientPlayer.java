@@ -19,7 +19,7 @@ import static com.messaging.util.Constants.*;
  */
 public class ClientPlayer {
     public static void main(String[] args) {
-        Logger.log("ENTER - CLIENT MAIN THREAD :: ");
+        Logger.info("CLIENT MAIN THREAD :: ", " START ");
 
         Integer attempt, maxRetry;
         attempt = ZERO;
@@ -27,6 +27,7 @@ public class ClientPlayer {
         Boolean isConnected = false;
 
         while (attempt < maxRetry && !isConnected) {
+            Logger.debug(" CLIENT PLAYER ATTEMPT NOS. :: ", String.valueOf(attempt));
             try (Socket socket = new Socket(CLIENT_HOST, ConfigReader.getIntProperty(SERVER_PORT, 8080));
                  BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                  PrintWriter printWriterOut = new PrintWriter(socket.getOutputStream(), true)) {
@@ -37,7 +38,7 @@ public class ClientPlayer {
                     printWriterOut.println(message);
 
                     String response = bufferedReader.readLine();
-                    Logger.log(" CLIENT RECEIVED MESSAGE :: " + response);
+                    Logger.info(" CLIENT RECEIVED MESSAGE :: ", response);
                 }
             } catch (Exception ex) {
                 ExceptionHandler.handle("EXCEPTION IN CLIENT PLAYER :: ", ex);
@@ -46,16 +47,17 @@ public class ClientPlayer {
                         Thread.sleep(ConfigReader.getIntProperty(RETRY_DELAY, 3));
                     } catch (InterruptedException ie) {
                         Thread.currentThread().interrupt();
-                        Logger.log("INTERRUPTED WHILE WAITING TO RETRY");
+                        Logger.error(" THREAD INTERRUPTED EXCEPTION ::", " WAITING TO RETRY");
                         break;
                     }
                 } else {
-                    Logger.log("MAX RETRIES REACHED. UNABLE TO CONNECT.");
+                    Logger.info("MAX RETRIES REACHED, UNABLE TO CONNECT :: ", " WILL EXIT " );
                 }
             }
-            Logger.log("EXIT - CLIENT DISCONNECTED :: ");
+            Logger.info("CLIENT DISCONNECTED :: ", "EXIT");
             attempt++;
         }
+        Logger.debug("CLIENT MAIN THREAD :: ", "EXIT");
     }
 
 }

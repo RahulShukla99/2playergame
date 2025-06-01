@@ -6,6 +6,7 @@ import com.messaging.dto.impl.MessageDTO;
 import com.messaging.exception.ExceptionHandler;
 import com.messaging.service.impl.PlayerService;
 import com.messaging.util.ConfigReader;
+import com.messaging.util.Logger;
 
 import static com.messaging.util.Constants.*;
 
@@ -16,6 +17,7 @@ import static com.messaging.util.Constants.*;
  */
 public class SeparateThreadMain {
     public static void main(String[] args) {
+        Logger.debug("PROCESS BUILDER FOR SEPARATE PID :: ", " START ");
 
         PlayerService playerService = new PlayerService();
 
@@ -45,5 +47,7 @@ public class SeparateThreadMain {
 
         threadOne.interrupt();
         threadTwo.interrupt();
+
+        Logger.debug("PROCESS BUILDER FOR SEPARATE PID :: ", " EXIT ");
     }
 }

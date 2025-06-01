@@ -11,7 +11,6 @@ import java.util.Properties;
  * @author Rahul Shukla
  */
 public class ConfigReader {
-
     private static final Properties properties = new Properties();
 
     // Code below runs once when the class is first loaded

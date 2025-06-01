@@ -35,24 +35,24 @@ public class PlayerService implements IPlayerService {
 
     @Override
     public void initiateMessageExchange() {
-//        Logger.log(" ENTER INITIATE MESSAGE EXCHANGE :: ");
+        Logger.debug("INITIATE MESSAGE EXCHANGE :: ", " ENTER");
         for (int i = 1; i <= messageLimit; i++) {
             Message message = new MessageDTO("PLAYER_ONE", "PLAYER_TWO", "msg-" + i, i);
             initiatingPlayer.sendMessage(message);
         }
-//        Logger.log(" EXIT INITIATE MESSAGE EXCHANGE");
+        Logger.debug( "INITIATE MESSAGE EXCHANGE :: ", " EXIT");
     }
 
     @Override
     public void handleMessage(Message message) {
-//        Logger.log("ENTER - MESSAGE HANDLER :: ");
+        Logger.debug("MESSAGE HANDLER :: ENTER - ", message.getMessageId());
         try {
-            Logger.log(" RECEIVED MESSAGE :: " + message.getContent());
+            Logger.info(" RECEIVED MESSAGE :: ", message.getContent());
 
             // Only respond if the message came from the initiator
             if (!message.getSenderId().equals(respondingPlayer.getPlayerId())) {
                 if (message.getMessageCounter() >= messageLimit) {
-                    Logger.log(" REQUIRED MESSAGES EXCHANGED - EXITING :: ");
+                    Logger.info(" REQUIRED MESSAGES EXCHANGED - EXITING :: ", String.valueOf(message.getMessageCounter()));
                     return;
                 }
 
@@ -69,6 +69,6 @@ public class PlayerService implements IPlayerService {
         } catch (Exception exception) {
             ExceptionHandler.handle("EXCEPTION IN MESSAGE HANDLER, PLAYER_ID - " + respondingPlayer.getPlayerId(), exception);
         }
-//        Logger.log("EXIT - MESSAGE HANDLER :: ");
+        Logger.debug(" MESSAGE HANDLER :: EXIT - ", message.getMessageId());
     }
 }

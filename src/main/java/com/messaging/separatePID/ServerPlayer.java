@@ -20,26 +20,26 @@ import static com.messaging.util.Constants.SERVER_PORT;
  */
 public class ServerPlayer {
     public static void main(String[] args) {
-        Logger.log("ENTER - SERVER MAIN THREAD :: ");
+        Logger.info("SERVER MAIN THREAD :: ", " START ");
 
         try (ServerSocket serverSocket = new ServerSocket(ConfigReader.getIntProperty(SERVER_PORT, 8080));
              Socket clientSocket = serverSocket.accept();
              BufferedReader bufferedReaderIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
              PrintWriter printWriterOut = new PrintWriter(clientSocket.getOutputStream(), true)) {
-             Logger.log("CLIENT CONNECTED :: ");
+             Logger.info("CLIENT CONNECTED ON PORT :: ", String.valueOf(clientSocket));
 
             String inputLine;
             while ((inputLine = bufferedReaderIn.readLine()) != null) {
-                Logger.log("SERVER RECEIVED MESSAGE :: " + inputLine);
+                Logger.info("SERVER RECEIVED MESSAGE :: ", inputLine);
 
                 String message = "REPLY - " + inputLine;
                 printWriterOut.println(message);
-                Logger.log("SERVER SENT MESSAGE :: " + message);
+                Logger.info("SERVER SENT MESSAGE :: ",  message);
             }
 
         } catch (Exception exception) {
             ExceptionHandler.handle("EXCEPTION IN MAIN THREAD - SERVER :: " , exception);
         }
-        Logger.log("EXIT - SERVER DISCONNECTED :: ");
+        Logger.info("SERVER DISCONNECTED :: ", "EXIT");
     }
 }
