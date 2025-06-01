@@ -81,8 +81,22 @@ public class BasicPlayer implements Player, Runnable {
     }
 
     /**
-     * Removes the message from the BlockingQueue in-order and
-     * sends it to the message handler for further processing
+     * Continuously processes incoming messages from the player's inbox while the thread is active.
+     *
+     * This method is the main execution loop for the player when run in a same thread. It:
+     * <ul>
+     *   <li>Waits for new messages in the {@code messageInbox} using {@code take()} (blocking call).</li>
+     *   <li>Delegates each message to the {@code playerService} for processing.</li>
+     *   <li>Handles any runtime exceptions via the {@code ExceptionHandler}.</li>
+     * </ul>
+     *
+     * The loop continues to run as long as {@code isRunning} remains {@code true}.
+     * Once stopped, a final log entry is made to indicate thread shutdown.
+     *
+     * Note: In separate PID mode, communication is handled via sockets (TCP client/server),
+     * and not by thread-based message polling loops. The run() method is irrelevant there,
+     * because each player is run in a completely separate JVM process, and message handling
+     * is done over network sockets (e.g., in ServerPlayer and ClientPlayer).
      */
     @Override
     public void run(){
