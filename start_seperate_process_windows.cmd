@@ -17,6 +17,11 @@ IF NOT EXIST "%CONFIG_FILE%" (
     exit /b 1
 )
 
+REM === Trim and Normalize Value ===
+for /f "tokens=* delims= " %%A in ("!SEPARATE_PID_MODE!") do (
+    set "SEPARATE_PID_MODE=%%A"
+)
+
 REM Check if separate.pid.mode=true is set
 FOR /F "usebackq tokens=1,* delims==" %%A IN ("%CONFIG_FILE%") DO (
     SET "key=%%A"

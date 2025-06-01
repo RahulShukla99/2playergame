@@ -1,117 +1,82 @@
-# ThreeSixZeroT - Java Player Communication System
+# ThreeSixZeroT_F - Player Messaging System
 
-## 📘 Overview
+This project demonstrates inter-player messaging using Java. Two players exchange messages either:
+1. **In the same process** (multi-threaded).
+2. **In separate processes** (via TCP sockets).
 
-This project simulates communication between two `Player` entities in two distinct modes:
+## Features
 
-- ✅ **Same JVM Process**: Both players communicate using threads.
-- ✅ **Separate JVM Processes**: Server and Client communicate over sockets, launched via `ProcessBuilder`.
+- Basic message DTO and player implementation
+- Configurable log level and port via `config.properties`
+- Supports both same-process and inter-process communication
+- Graceful termination after a predefined message count
+- Centralized logger with support for TRACE, DEBUG, INFO, WARN, and ERROR levels
+- Modular design with clear separation of DTOs, services, and utilities
 
----
-
-## 🧱 Project Structure
+## Project Structure
 
 ```
 src/
 ├── main/
-│   ├── java/com/messaging/
-│   │   ├── dto/              # Message DTOs and Player interfaces
-│   │   ├── service/          # PlayerService interface and implementation
-│   │   ├── util/             # Logger, config reader, constants
-│   │   ├── thread/           # MessageThread, execution logic
-│   │   ├── separatePID/      # ServerPlayer and ClientPlayer
-│   │   └── runner/           # SameProcessRunner and SeparateProcessRunner
+│   ├── java/
+│   │   ├── com.messaging/
+│   │   │   ├── dto/         # Interfaces and Message DTOs
+│   │   │   ├── service/     # Service interfaces and implementations
+│   │   │   ├── separatePID/ # Client and Server for separate JVM communication
+│   │   │   ├── thread/      # Thread runner for same-process mode
+│   │   │   ├── util/        # Utility classes: Logger, ConfigReader
+│   │   │   └── exception/   # Centralized exception handling
 │   └── resources/
 │       └── config.properties
 ├── test/
-│   └── java/                 # Unit and integration tests
+    ├── java/
+        └── integration/     # Integration tests for communication
+        └── service/         # Unit tests for services
 ```
 
----
+## How to Run
 
-## 🚀 How to Build and Run
+### Same Process (Multi-threaded)
 
-### 🛠 Prerequisites
+#### Mac/Linux
+```bash
+./start_same_process.sh
+```
+
+#### Windows
+```cmd
+start_same_process.cmd
+```
+
+### Separate Processes
+
+Start the server and client in two different terminals:
+
+#### Server
+```bash
+mvn compile exec:java -Dexec.mainClass=com.messaging.separatePID.ServerPlayer
+```
+
+#### Client
+```bash
+mvn compile exec:java -Dexec.mainClass=com.messaging.separatePID.ClientPlayer
+```
+
+## Configuration
+
+Edit the `src/main/resources/config.properties` file to adjust:
+
+- `server.port` — TCP port for server (default: 8080)
+- `log.level` — Logging level (e.g., INFO, DEBUG, ERROR)
+
+## Requirements
 
 - Java 17+
-- Maven 3.x+
+- Maven 3.6+
 
-### 🔧 Build
-```bash
-mvn clean package
-```
-
-### ▶️ Run in Same JVM
-Update `Main.java` to use:
-```java
-Runner runner = new SameProcessRunner();
-```
-
-Run:
-```bash
-mvn exec:java -Dexec.mainClass="com.messaging.Main"
-```
-
-### ▶️ Run in Separate JVMs
-Update `Main.java` to use:
-```java
-Runner runner = new SeparateProcessRunner();
-```
-
-Then:
-```bash
-mvn exec:java -Dexec.mainClass="com.messaging.Main"
-```
-
-This internally launches:
-- `ServerPlayer` in one process
-- `ClientPlayer` in another
-
-✅ PIDs of both processes are printed to confirm separate execution.
-
----
-
-## ⚙️ Configuration
-
-You can change default player names, ports, or limits in:
-```
-src/main/resources/config.properties
-```
-
----
-
-## 🧪 Testing
-
-Tests are available under:
-```
-src/test/java/
-```
-
-- `PlayerServiceTest`: Unit test for player service logic
-- `SocketCommunicationTest`: Integration test for socket-based communication
-
-Run with:
-```bash
-mvn test
-```
-
----
-
-## 📋 Logging
-
-Basic console logging is available via `messaging.util.Logger`.
-
-For production, replace it with SLF4J or Java Util Logging.
-
----
-
-## 📄 License
-
-MIT (Add if required)
-
----
-
-## 🧠 Author
-
+## Author
 Rahul Shukla
 
+---
+
+Licensed under MIT.
