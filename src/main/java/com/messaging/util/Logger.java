@@ -62,12 +62,4 @@ public class Logger {
         log(LogLevel.TRACE, who, message);
     }
 
-    public static void log(String message) {
-        if (!shouldLog(LogLevel.INFO)) return;
-        String time = LocalDateTime.now().format(DATE_TIME_FORMATTER);
-        String threadName = Thread.currentThread().getName();
-        synchronized (Logger.class) {
-            System.out.printf("[%s] [%s] %s%n", time, threadName, message);
-        }
-    }
 }

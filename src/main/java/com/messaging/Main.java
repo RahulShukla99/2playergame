@@ -17,11 +17,11 @@ public class Main {
         Logger.info("MAIN", "STARTING THE APPLICATION :: SAME PID");
 
         if(ConfigReader.getBooleanProperty(SEPARATE_PID_MODE, false)){
-            Logger.log("STARTING THE APPLICATION :: SEPARATE PID ");
+            Logger.info("STARTING THE APPLICATION :: SEPARATE PID ", SEPARATE_PID_MODE);
             SeparateProcessRunner separateRunner = new SeparateProcessRunner();
             separateRunner.start();
         } else {
-            Logger.log("STARTING THE APPLICATION :: SAME PID ");
+            Logger.info("STARTING THE APPLICATION :: SEPARATE_PID_MODE ", SEPARATE_PID_MODE);
             SameProcessRunner sameProcessRunner = new SameProcessRunner();
             sameProcessRunner.start();
         }
