@@ -47,11 +47,19 @@ public class BasicPlayer implements Player, Runnable {
      */
     @Override
     public void sendMessage(Message message) {
+        // Validate against null or invalid messages
+        if (message == null) {
+            Logger.warn("BasicPlayer-" + playerId, "ATTEMPTED TO SEND NULL MESSAGE");
+            return;
+        }
+
         Logger.info(" PLAYER_ID - " + playerId, " - SENDING MESSAGE :: " + message.getContent());
 
         // Send message to the other player’s inbox
         if (otherPlayer != null) {
             otherPlayer.receiveMessage(message);
+        } else {
+            Logger.error("BasicPlayer-" + playerId, "OTHER PLAYER IS NULL - MESSAGE NOT DELIVERED");
         }
     }
 
@@ -61,14 +69,23 @@ public class BasicPlayer implements Player, Runnable {
     @Override
     // Handles incoming messages, responds if limit not reached.
     public void receiveMessage(Message message) {
+        // Validate against null or invalid messages
+        if (message == null) {
+            Logger.warn(" PLAYER_ID - " + playerId, " NULL MESSAGE RECEIVED - Ignoring");
+            return;
+        }
+
         messageInbox.offer(message);
         handleNextMessage();
     }
 
     private void handleNextMessage() {
         Message message = messageInbox.poll();
-        if (message == null)
+        // Gracefully handle invalid messages
+        if (message == null) {
+            Logger.warn("PlayerService", "RECEIVED NULL MESSAGE - SKIPPING PROCESSING");
             return;
+        }
 
         // Only handle if message is not from self
         if (!message.getSenderId().equals(this.playerId)) {
