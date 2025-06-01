@@ -17,6 +17,7 @@ public class SameProcessRunner implements IRunner {
     @Override
     public void start() {
         Logger.debug("SAME PROCESS RUNNER :: ", " START ");
+
         PlayerService playerService = new PlayerService();
 
         BasicPlayer basicPlayerOne = new BasicPlayer(PLAYER_ONE, playerService);
@@ -25,7 +26,7 @@ public class SameProcessRunner implements IRunner {
 
         playerService.setPlayers(basicPlayerOne, basicPlayerTwo);
         playerService.initiateMessageExchange();
-        Logger.debug("SAME PROCESS RUNNER :: ", " EXIT ");
 
+        Logger.debug("SAME PROCESS RUNNER :: ", " EXIT ");
     }
 }

@@ -46,6 +46,7 @@ public class PlayerService implements IPlayerService {
     @Override
     public void handleMessage(Message message) {
         Logger.debug("MESSAGE HANDLER :: ENTER - ", message.getMessageId());
+
         try {
             Logger.info(" RECEIVED MESSAGE :: ", message.getContent());
 
@@ -69,6 +70,7 @@ public class PlayerService implements IPlayerService {
         } catch (Exception exception) {
             ExceptionHandler.handle("EXCEPTION IN MESSAGE HANDLER, PLAYER_ID - " + respondingPlayer.getPlayerId(), exception);
         }
+
         Logger.debug(" MESSAGE HANDLER :: EXIT - ", message.getMessageId());
     }
 }

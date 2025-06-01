@@ -8,10 +8,6 @@ import com.messaging.util.Logger;
 import static com.messaging.util.Constants.SEPARATE_PID_MODE;
 
 /**
- * Main class to initialize 2 players in the same PID and start communication
- */
-
-/**
  * Main entry point to run player communication system.
  * 
  * @author Rahul Shukla

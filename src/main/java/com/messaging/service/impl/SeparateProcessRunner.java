@@ -16,6 +16,7 @@ public class SeparateProcessRunner implements IRunner {
     @Override
     public void start() {
         Logger.debug("SEPARATE PROCESS RUNNER :: ", " START ");
+
         try{
             ProcessBuilder processBuilderServer = new ProcessBuilder("java", "-cp","target/classes","com.messaging.separatePID.ServerPlayer");
             Logger.info("SERVER PLAYER STARTED ON PID :: ", String.valueOf(processBuilderServer.inheritIO().start().pid()));
@@ -28,6 +29,7 @@ public class SeparateProcessRunner implements IRunner {
         } catch (Exception exception) {
             ExceptionHandler.handle("EXCEPTION IN SEPARATE PROCESS BUILDER :: ", exception);
         }
+
         Logger.debug("SEPARATE PROCESS RUNNER :: ", " EXIT ");
     }
 }
