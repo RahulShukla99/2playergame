@@ -4,6 +4,8 @@
 # Usage: Run this script in the project root directory & from terminal on macOS
 # Ensure separate.pid.mode is false in Config property
 
+# Define your Maven project directory
+PROJECT_DIR="/Users/rahulshukla/Desktop/360T/RS_Submission/ThreeSixZeroT_F"
 CONFIG_FILE="src/main/resources/config.properties"
 
 # Check if config file exists

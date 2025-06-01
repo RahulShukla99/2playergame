@@ -37,7 +37,9 @@ public class Logger {
 
         String time = LocalDateTime.now().format(DATE_TIME_FORMATTER);
         String threadName = Thread.currentThread().getName();
-        System.out.printf("[%s] [%s] [%s] [%s] %s%n", time, threadName, level, who, message);
+        synchronized (Logger.class) {
+            System.out.printf("[%s] [%s] [%s] [%s] %s%n", time, threadName, level, who, message);
+        }
     }
 
     public static void info(String who, String message) {
@@ -64,6 +66,8 @@ public class Logger {
         if (!shouldLog(LogLevel.INFO)) return;
         String time = LocalDateTime.now().format(DATE_TIME_FORMATTER);
         String threadName = Thread.currentThread().getName();
-        System.out.printf("[%s] [%s] %s%n", time, threadName, message);
+        synchronized (Logger.class) {
+            System.out.printf("[%s] [%s] %s%n", time, threadName, message);
+        }
     }
 }
