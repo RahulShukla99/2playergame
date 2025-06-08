@@ -1,4 +1,4 @@
-# ThreeSixZeroT_F - Player Messaging System
+# 2 Player Messaging Game
 
 This project demonstrates inter-player messaging using Java. Two players exchange messages either:
 1. **In the same process** (multi-threaded).
